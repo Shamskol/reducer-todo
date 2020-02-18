@@ -1,26 +1,52 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TodoList from './components/TodoList';
+import TodoItems from './components/TodoItems';
 
-function App() {
+
+
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      items: [],
+      currentItem: {text:'', key:''},
+    }
+  }
+  handleInput = e => {
+    console.log('Hello Input')
+  }
+  addItem = () => {
+    console.log('Hello Add Item')
+  }
+  deleteItem = key => {
+    const filteredItems = this.state.items.filter(item => {
+      return item.key !== key
+    })
+    this.setState({
+      items: filteredItems,
+    })
+  }
+
+  render() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <TodoItems entries={this.state.items}/>  
+      <TodoList 
+      addItem={this.addItem}
+      inputElement={this.inputElement}
+      handleInput={this.handleInput}
+      currentItem={this.state.currentItem} 
+      
+      />
+        
+
     </div>
   );
 }
+}
 
-export default App;
+export default App
